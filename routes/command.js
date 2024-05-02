@@ -32,5 +32,26 @@ router.get('/getAllCommands', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+router.put('/commandDelivered/:id', async (req, res) => {
+    const { id } = req.params; 
+    const { delivered } = req.body; 
+
+    try {
+        if (typeof delivered !== 'boolean') {
+            return res.status(400).json({ message: 'Invalid delivered attribute' });
+        }
+
+        const updatedCommand = await Command.findByIdAndUpdate(id, { delivered }, { new: true });
+
+        if (!updatedCommand) {
+            return res.status(404).json({ message: 'Command not found' });
+        }
+
+        res.status(200).json(updatedCommand);
+    } catch (error) {
+        console.error('Error updating command:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
 
 module.exports = router;

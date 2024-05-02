@@ -9,11 +9,11 @@ app.use(bodyParser.json()); app.use(cors());
 
 const userRoutes = require('./routes/users');
 const medicalRoutes = require('./routes/medicals');
-const commandRoutes = require('./routes/command');
+const shipRoutes = require('./routes/ship');
 
 app.use('/api/user', userRoutes);
-app.use('/api/medical', medicalRoutes);
-app.use('/api/command', commandRoutes);
+app.use('/api/ship', medicalRoutes);
+app.use('/api/command', shipRoutes);
 
 const server = http.createServer(app);
 
